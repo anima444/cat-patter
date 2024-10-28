@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pat the Real Cat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #6a1b9a;
+        }
+        .cat-container {
+            position: relative;
+            width: 200px;
+            margin: 30px auto;
+        }
+        .cat {
+            width: 100%;
+            transition: transform 0.1s ease;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .pat-counter {
+            font-size: 24px;
+            color: #333;
+            margin-top: 10px;
+        }
+        /* CSS for pat milestones */
+        .happy-cat {
+            filter: brightness(1.2);
+        }
+        .very-happy-cat {
+            filter: brightness(1.5) saturate(1.2);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pat the Real Cat</h1>
+<p>Click the cat to give it a pat!</p>
+
+<div class="cat-container">
+    <img id="realCat" class="cat" src="/mnt/data/cat.jpg" alt="Real Cat">
+</div>
+
+<div class="pat-counter">
+    Pats Given: <span id="patCount">0</span>
+</div>
+
+<script>
+    // Initialize pat count
+    let patCount = 0;
+
+    // Get HTML elements
+    const realCat = document.getElementById("realCat");
+    const patCountDisplay = document.getElementById("patCount");
+
+    // Function to update the pat count
+    function patCat() {
+        patCount++;
+        patCountDisplay.innerText = patCount;
+
+        // Cat reaction based on pat milestones
+        if (patCount >= 10 && patCount < 20) {
+            realCat.classList.add("happy-cat");
+            realCat.classList.remove("very-happy-cat");
+        } else if (patCount >= 20) {
+            realCat.classList.add("very-happy-cat");
+        } else {
+            realCat.classList.remove("happy-cat", "very-happy-cat");
+        }
+
+        // Small "bounce" animation
+        realCat.style.transform = "scale(1.1)";
+        setTimeout(() => {
+            realCat.style.transform = "scale(1)";
+        }, 100);
+    }
+
+    // Event listener for clicking the cat
+    realCat.addEventListener("click", patCat);
+</script>
+
+</body>
+</html>
